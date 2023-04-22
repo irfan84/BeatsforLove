@@ -9,9 +9,9 @@ const AroundYou = () => {
   const [loading, setLoading] = useState(true);
   const { activeSong, isPlaying } = useSelector((state) => state.player);
 
-  const { data, isFetching, error } = useGetSongsByCountryQuery(
-    location.country
-  );
+  const { region, country } = location;
+
+  const { data, isFetching, error } = useGetSongsByCountryQuery(country);
 
   useEffect(() => {
     axios
@@ -28,18 +28,18 @@ const AroundYou = () => {
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));
-  }, [location.country]);
+  }, [country]);
 
   if (isFetching && loading) {
     return <Loader title="Loading Top Songs Around You" />;
   }
 
-  if (error && location.country) return <Error />;
+  if (error && country) return <Error />;
 
   return (
     <div className="w-full flex flex-col">
       <h2 className="text-white font-bold text-3xl text-left mt-4 mb-10">
-        {`Discover Around You (${location.region}, ${location.country})`}
+        {`Discover Around You (${region}, ${country})`}
       </h2>
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
         {data?.map((song, i) => (
