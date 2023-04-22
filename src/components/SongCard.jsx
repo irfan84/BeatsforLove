@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { useRef } from 'react';
 import PlayPause from './PlayPause';
 import { playPause, setActiveSong } from '../redux/features/playerSlice';
 
 const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
   const dispatch = useDispatch();
-  const ref = useRef(null);
   const handlePauseClick = () => {
     dispatch(playPause(false));
-    ref.current.pause();
   };
   const handlePlayClick = () => {
     dispatch(setActiveSong({ song, data, i }));
     dispatch(playPause(true));
-    ref.current.play();
   };
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
@@ -26,7 +22,6 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
       activeSong.title === song.title ? 'flex bg-black bg-opacity-70' : 'hidden'
     }`}
         >
-          <audio src={activeSong?.hub?.actions[1]?.uri} ref={ref} />
           <PlayPause
             song={song}
             isPlaying={isPlaying}
