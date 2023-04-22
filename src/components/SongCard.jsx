@@ -26,6 +26,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
       activeSong.title === song.title ? 'flex bg-black bg-opacity-70' : 'hidden'
     }`}
         >
+          <audio src={activeSong?.hub?.actions[1]?.uri} ref={ref} />
           <PlayPause
             song={song}
             isPlaying={isPlaying}
