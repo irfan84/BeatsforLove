@@ -54,14 +54,14 @@ const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const { data } = useGetTopChartsQuery();
-  const divRef = useRef(null);
+  // const divRef = useRef(null);
 
-  useEffect(() => {
-    divRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  });
+  // useEffect(() => {
+  //   divRef.current.scrollIntoView({
+  //     behavior: 'smooth',
+  //     block: 'center',
+  //   });
+  // });
 
   const topPlays = data?.slice(3, 8);
   console.log(topPlays);
