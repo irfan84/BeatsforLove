@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow: hidden;
+}
+
 /* Active Navigation Link */
 .active {
   @apply text-cyan-500;
