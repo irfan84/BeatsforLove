@@ -36,7 +36,7 @@ const TopChartCard = ({
       <Link to={`/songs/${song.key}`}>
         <p className="text-xl font-bold text-white">{song?.title}</p>
       </Link>
-      <Link to={`/artists/${song?.artists[0].adamid}`}>
+      <Link to={song?.artists ? `/artists/${song?.artists[0].adamid}` : '#'}>
         <p className="text-base text-gray-300 mt-1">{song?.subtitle}</p>
       </Link>
     </div>
@@ -63,8 +63,8 @@ const TopPlay = () => {
   //   });
   // });
 
-  const topPlays = data?.slice(3, 8);
-  console.log(topPlays);
+  // Filters the song if image and song uri are missing to avoid app error
+  const filteredSong = data?.filter((obj) => obj.images !== undefined);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
@@ -89,7 +89,7 @@ const TopPlay = () => {
         </div>
 
         <div className="mt-4 flex flex-col gap-1">
-          {topPlays?.map((song, i) => (
+          {filteredSong?.map((song, i) => (
             <TopChartCard
               key={song.key}
               song={song}
@@ -120,13 +120,19 @@ const TopPlay = () => {
           modules={[FreeMode]}
           className="mt-4"
         >
-          {topPlays?.map((artist) => (
+          {filteredSong?.map((artist) => (
             <SwiperSlide
               key={artist?.key}
               style={{ width: '25%', height: 'auto' }}
               className="shadow-lg rounded-full animate-slideright"
             >
-              <Link to={`/artists/${artist?.artists[0].adamid}`}>
+              <Link
+                to={
+                  artist?.artists
+                    ? `/artists/${artist?.artists[0].adamid}`
+                    : '#'
+                }
+              >
                 <img
                   src={artist?.images?.background}
                   alt="Name"

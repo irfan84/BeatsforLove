@@ -13,13 +13,16 @@ const TopCharts = () => {
 
   if (error) return <Error />;
 
+  // Filters the song if image and song uri are missing to avoid app error
+  const filteredSong = data?.filter((obj) => obj.images !== undefined);
+
   return (
     <div className="w-full flex flex-col">
       <h2 className="text-white font-bold text-3xl text-left mt-4 mb-10">
         Discover Top Charts
       </h2>
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
-        {data?.slice(3, data.length - 1).map((song, i) => (
+        {filteredSong?.slice(3, data.length - 1).map((song, i) => (
           <SongCard
             key={song.key}
             song={song}
