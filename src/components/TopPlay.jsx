@@ -29,7 +29,7 @@ const TopChartCard = ({
 
     <img
       className="w-20 h-20 rounded-lg"
-      src={song?.images?.coverart}
+      src={song?.images?.coverart || song?.images?.background}
       alt={song?.title}
     />
     <div className="flex-1 flex flex-col justify-center mx-3">
@@ -64,7 +64,9 @@ const TopPlay = () => {
   // });
 
   // Filters the song if image and song uri are missing to avoid app error
-  const filteredSong = data?.filter((obj) => obj.images !== undefined);
+  const filteredSong = data
+    ?.filter((obj) => obj.images !== undefined)
+    .slice(0, 5);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
